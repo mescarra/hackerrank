@@ -1,0 +1,4 @@
+src/main/scala/*.sc
+src/main/scala/Solution.scala
+.idea/
+target/
