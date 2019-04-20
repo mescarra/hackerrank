@@ -2,10 +2,9 @@ package Discrete
 
 object Combinatorial {
   import math._
-  var dpCount: Array[Array[Long]] = Array.fill(1001)(Array.fill(1001)(0))
-  var MAX = (1e8 + 7).toLong
 
-  def choose(n: Int, k: Int): Long = {
+  def dpChoose(n: Int, k: Int, max: Long = Long.MaxValue): Long = {
+    val dpCount: Array[Array[Long]] = Array.fill(10001)(Array.fill(10001)(0))
     var kP = k
     if (k > n / 2)
       kP = n - k
@@ -16,10 +15,33 @@ object Combinatorial {
           if (j == 0 || j == i)
             dpCount(i)(j) = 1
           else
-            dpCount(i)(j) = (dpCount(i - 1)(j) + dpCount(i - 1)(j - 1)) % MAX
+            dpCount(i)(j) = (dpCount(i - 1)(j) + dpCount(i - 1)(j - 1)) % max
       }
 
     dpCount(n)(kP)
+  }
+
+  def factorial(n:Long): Long = {
+    def factTR(k:Long, acc:Long):Long = if (k<=1) acc else factTR(k-1, k*acc)
+
+    factTR(n, 1)
+  }
+
+  def choose(n:Int, k:Int): Long = {
+    var ki = min(2,k)
+    var fact: Long = 1L
+    for (ni <- n until (n-k) by -1){
+      fact *= ni.toLong
+      if (ki <= k && (fact % ki == 0)){
+        fact /= ki.toLong
+        ki += 1
+      }
+    }
+
+    for (j <- ki to k)
+      fact /= j.toLong
+
+    fact
   }
 
   def permutations[A](elements: List[A]): List[List[A]] = {

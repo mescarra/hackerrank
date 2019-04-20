@@ -1,4 +1,4 @@
-package Adhoc
+package Challenges
 
 /*
  * Super Digit
