@@ -2,7 +2,7 @@ package DS
 
 object Arrays {
 
-  case class Data(from: Int, to: Int, sum: Int) {
+  case class Data(from: Int, to: Int, sum: Long) {
     def >(d2: Data): Boolean = (this, d2) match {
       case (x, y) if x.sum > y.sum => true
       case (x, y) if x.sum == y.sum && x.from < y.from => true
@@ -13,14 +13,14 @@ object Arrays {
     def max(d2: Data): Data = if (this > d2) this else d2
   }
 
-  case class SubArraySumSolver(array: Array[Int]) {
+  case class SubArraySumSolver(array: Array[Long]) {
 
-    def subarraySum(i: Int, j: Int): Int = array.slice(i, j).sum
+    def subarraySum(i: Int, j: Int): Long = array.slice(i, j).sum
 
     def largestSubArraySum: Data = {
       def findMaxCrossingArray(i: Int, mid: Int, j: Int): Data = {
-        var sum = 0
-        var maxLeft, maxRight = Data(Int.MaxValue, Int.MaxValue, Int.MinValue)
+        var sum = 0L
+        var maxLeft, maxRight = Data(Int.MaxValue, Int.MaxValue, Long.MinValue)
 
         for (k <- (mid - 1) to i by -1) {
           sum += array(k)
@@ -58,6 +58,8 @@ object Arrays {
       else
         lsum(0, array.length)
     }
+
+
   }
 
 }
