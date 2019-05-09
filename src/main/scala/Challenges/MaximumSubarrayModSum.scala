@@ -1,0 +1,5 @@
+package Challenges
+
+object MaximumSubarrayModSum {
+
+}
