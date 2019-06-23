@@ -24,6 +24,17 @@ object BinTree {
     }
   }
 
+  def buildTreeFromArray(indexes: Array[Array[Int]]): Tree[Int] = {
+    def bTreeIter(arr: Array[Array[Int]], i:Int): Tree[Int] = {
+      if (i >= arr.length) Leaf
+      else {
+        val h = arr(i)
+        Node(bTreeIter(arr, h(0)-1), bTreeIter(arr,h(1)-1), i+1)
+      }
+    }
+    bTreeIter(indexes, 0)
+  }
+
   def inOrder[A](t: Tree[A]): List[A] = t match {
     case Leaf => Nil
     case Node(l, r, e) => inOrder(l) ++ List(e) ++ inOrder(r)
